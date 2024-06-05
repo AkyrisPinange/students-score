@@ -1,2 +1,0 @@
-# studants-score
- studants-score

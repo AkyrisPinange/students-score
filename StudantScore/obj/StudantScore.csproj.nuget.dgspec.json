@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\programming\\students-score\\students-score\\WebApplication1\\student-score.csproj": {}
+    "D:\\programming\\students-score\\StudantScore\\StudantScore\\StudantScore.csproj": {}
   },
   "projects": {
-    "D:\\programming\\students-score\\students-score\\WebApplication1\\student-score.csproj": {
+    "D:\\programming\\students-score\\StudantScore\\StudantScore\\StudantScore.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\programming\\students-score\\students-score\\WebApplication1\\student-score.csproj",
-        "projectName": "student-score",
-        "projectPath": "D:\\programming\\students-score\\students-score\\WebApplication1\\student-score.csproj",
+        "projectUniqueName": "D:\\programming\\students-score\\StudantScore\\StudantScore\\StudantScore.csproj",
+        "projectName": "StudantScore",
+        "projectPath": "D:\\programming\\students-score\\StudantScore\\StudantScore\\StudantScore.csproj",
         "packagesPath": "C:\\Users\\akyri\\.nuget\\packages\\",
-        "outputPath": "D:\\programming\\students-score\\students-score\\WebApplication1\\obj\\",
+        "outputPath": "D:\\programming\\students-score\\StudantScore\\StudantScore\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\akyri\\AppData\\Roaming\\NuGet\\NuGet.Config",
