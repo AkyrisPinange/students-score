@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Authentication.Negotiate;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 using StudantScore.Data;
 using StudantScore.Repositories;
@@ -36,8 +37,13 @@ builder.Services.AddAuthentication(NegotiateDefaults.AuthenticationScheme)
 
 builder.Services.AddAuthorization(options =>
 {
-    // By default, all incoming requests will be authorized according to the default policy.
-    options.FallbackPolicy = options.DefaultPolicy;
+    options.FallbackPolicy = new AuthorizationPolicyBuilder()
+       .RequireAuthenticatedUser()
+       .Build();
+
+    options.DefaultPolicy = new AuthorizationPolicyBuilder()
+        .RequireAssertion(_ => true)
+        .Build();
 });
 
 builder.Services.AddControllers().AddJsonOptions(options =>
@@ -45,7 +51,22 @@ builder.Services.AddControllers().AddJsonOptions(options =>
     options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve;
 });
 
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("CorsPolicy",
+                      policy =>
+                      {
+                          policy.AllowAnyOrigin()
+                                .AllowAnyHeader()
+                                .AllowAnyMethod();
+                      });
+});
+
 var app = builder.Build();
+
+// Use the CORS policy
+app.UseCors("CorsPolicy");
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -56,7 +77,6 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-app.UseAuthorization();
 
 app.MapControllers();
 
@@ -67,8 +87,8 @@ app.Run();
 
 void InitializeDatabase(IApplicationBuilder app)
 {
-    using (IServiceScope serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
-    {
+        using (IServiceScope serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
+        {
 
             var context = serviceScope.ServiceProvider.GetRequiredService<SchoolContext>();
             var csvFileReader = serviceScope.ServiceProvider.GetRequiredService<CsvFileReader>();
@@ -79,5 +99,5 @@ void InitializeDatabase(IApplicationBuilder app)
                 context.Alunos.AddRange(alunos);
                 context.SaveChanges();
             }
-    }
+        }  
 }

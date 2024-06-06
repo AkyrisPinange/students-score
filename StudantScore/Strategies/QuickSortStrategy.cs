@@ -24,7 +24,7 @@ namespace StudantScore.Strategies
 
         private int Partition(List<Aluno> alunos, int low, int high)
         {
-            double pivot = alunos[high].Materias.Average(m => m.Nota);
+            double? pivot = alunos[high].Materias.Average(m => m.Nota);
             int i = (low - 1);
 
             for (int j = low; j <= high; j++) 

@@ -1,7 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using StudantScore.Services;
 using StudantScore.Strategies;
-using static StudantScore.Services.IAlunoService;
 
 namespace StudantScore.Controllers
 {
@@ -20,36 +20,51 @@ namespace StudantScore.Controllers
             _quickSortStrategy = sortingStrategies.OfType<QuickSortStrategy>().First();
         }
 
+        [HttpGet("alunos")]
+        [AllowAnonymous]
+        
+        public IActionResult GetTodosAlunos()
+        {
+            return Ok(_alunoService.GetTodosAlunos());
+        }
+
         [HttpGet("aprovados")]
+        [AllowAnonymous]
         public IActionResult GetAlunosAprovados()
         {
             return Ok(_alunoService.GetAlunosAprovados());
         }
+
         [HttpGet("reprovados")]
+        [AllowAnonymous]
         public IActionResult GetAlunosReprovados()
         {
             return Ok(_alunoService.GetAlunosReprovados());
         }
 
         [HttpGet("melhor-aluno/{materia}")]
+        [AllowAnonymous]
         public IActionResult GetMelhorAlunoPorMateria(string materia)
         {
             return Ok(_alunoService.GetMelhorAlunoPorMateria(materia));
         }
 
         [HttpGet("{matricula}")]
+        [AllowAnonymous]
         public IActionResult GetAlunoPorMatricula(int matricula)
         {
             return Ok(_alunoService.GetAlunoPorMatricula(matricula));
         }
 
         [HttpGet("ordenar/bubble")]
+        [AllowAnonymous]
         public IActionResult OrdenarAlunosPorMediaBubbleSort()
         {
             return Ok(_alunoService.OrdenarAlunosPorMedia(_bubbleSortStrategy));
         }
 
         [HttpGet("ordenar/quick")]
+        [AllowAnonymous]
         public IActionResult OrdenarAlunosPorMediaQuickSort()
         {
             return Ok(_alunoService.OrdenarAlunosPorMedia(_quickSortStrategy));

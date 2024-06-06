@@ -14,6 +14,11 @@ namespace StudantScore.Services
             _alunoRepository = alunoRepository;
         }
 
+        public IEnumerable<Aluno> GetTodosAlunos()
+        {
+            return _alunoRepository.GetAll();
+        } 
+        
         public IEnumerable<Aluno> GetAlunosAprovados()
         {
             return _alunoRepository.GetAll()
@@ -23,10 +28,10 @@ namespace StudantScore.Services
         public IEnumerable<Aluno> GetAlunosReprovados()
         {
             return _alunoRepository.GetAll()
-                .Where(a => a.Materias.All(a => a.Nota < 60));
+                .Where(a =>  a.Materias.Any(a => a.Nota < 60));
         }
 
-        public Aluno GetMelhorAlunoPorMateria(string materia) 
+        public Aluno? GetMelhorAlunoPorMateria(string materia) 
         {
             return _alunoRepository.GetAll()
                 .SelectMany(a => a.Materias.Where(m => string.Equals(m.Nome, materia, 
@@ -36,7 +41,7 @@ namespace StudantScore.Services
                 .FirstOrDefault()?.Aluno;
         }
 
-        public Aluno GetAlunoPorMatricula(int matricula)
+        public Aluno? GetAlunoPorMatricula(int matricula)
         {
             return _alunoRepository.GetAll()
                 .Where(a => a.Matricula == matricula)

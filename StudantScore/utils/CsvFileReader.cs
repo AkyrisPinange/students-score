@@ -2,6 +2,8 @@
 using CsvHelper;
 using StudantScore.Models;
 using System.Globalization;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace StudantScore.utils
 {
@@ -29,18 +31,21 @@ namespace StudantScore.utils
 
                 foreach (var record in records)
                 {
+                    List<Materia> materias = new List<Materia>();
+
                     var aluno = new Aluno
                     {
                         Matricula = Int32.Parse(record.matricula),
                         Nome = record.nome,
+                        Materias = materias
                     };
 
-                    var materias = new List<Materia>
+                     materias = new List<Materia>
                     {
-                        new Materia { Nome = "Matematica", Nota = int.Parse(record.matematica), Aluno = aluno },
-                        new Materia { Nome = "Portugues", Nota = int.Parse(record.portugues), Aluno = aluno },
-                        new Materia { Nome = "Biologia", Nota = int.Parse(record.biologia), Aluno = aluno },
-                        new Materia { Nome = "Quimica", Nota = int.Parse(record.quimica), Aluno = aluno }
+                        new Materia { Nome = "Matematica", Nota = int.Parse(record.matematica)},
+                        new Materia { Nome = "Portugues", Nota = int.Parse(record.portugues)},
+                        new Materia { Nome = "Biologia", Nota = int.Parse(record.biologia) },
+                        new Materia { Nome = "Quimica", Nota = int.Parse(record.quimica)}
                     };
 
                     aluno.Materias = materias;
